@@ -59,3 +59,21 @@ sudo apt-get install -y nodejs
 curl -sL https://deb.nodesource.com/setup_6.x | bash -
 apt-get install -y nodejs
 ```
+
+## node.js的源设置
+
+npm默认已经灰常慢了，用taobao的镜像吧
+
+```
+sudo npm config set registry https://registry.npm.taobao.org
+```
+
+使用
+
+    npm info express
+
+或
+
+    npm config get registry
+
+可以查看现在的源
