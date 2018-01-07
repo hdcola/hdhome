@@ -1,0 +1,61 @@
+## wifi设置
+
+如果你需要连接到多个wifi，可以通过在wpa_supplicant.conf中加入多个network来指定，比如
+
+```
+country=CN
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+network={
+        ssid="s1"
+        psk="p1"
+        key_mgmt=WPA-PSK
+        priority=1
+    }
+network={
+        ssid="s2"
+        psk="p2"
+        key_mgmt=WPA-PSK
+        priority=10
+    }
+  ```
+
+这里priority是优先级，哪个小先连接哪个。注意，这个文件放在sd卡根目录下，开机后会自动更新到/etc目录中去。
+
+## 安装Node.js
+
+### Node.js v9.x:
+
+```
+# Using Ubuntu
+curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# Using Debian, as root
+curl -sL https://deb.nodesource.com/setup_9.x | bash -
+apt-get install -y nodejs
+```
+
+### Node.js v8.x:
+
+```
+# Using Ubuntu
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# Using Debian, as root
+curl -sL https://deb.nodesource.com/setup_8.x | bash -
+apt-get install -y nodejs
+```
+
+### Node.js v6.x:
+
+```
+# Using Ubuntu
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# Using Debian, as root
+curl -sL https://deb.nodesource.com/setup_6.x | bash -
+apt-get install -y nodejs
+```
