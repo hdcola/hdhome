@@ -22,6 +22,10 @@ network={
 
 这里priority是优先级，哪个小先连接哪个。注意，这个文件放在sd卡根目录下，开机后会自动更新到/etc目录中去。
 
+## hassbian的ssh
+
+可以ssh的用户是pi，密码是raspberry。我的mac可以用 hassbian.local 连接过去，不用去路由器查ip（按道理win也应该可以）。
+
 ## hassbian的更新源
 
 修改 /etc/apt/sources.list
