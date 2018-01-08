@@ -104,6 +104,25 @@ sudo npm install -g homebridge-homeassistant
 
 ## 配置Homebridge启动脚本
 
+编辑homebridge配置
+
+```
+sudo vi /etc/default/homebridge
+```
+
+内容为
+
+```
+# Defaults / Configuration options for homebridge
+# The following settings tells homebridge where to find the config.json file and where to persist the data (i.e. pairing and others)
+HOMEBRIDGE_OPTS=-U /home/homeassistant/.homebridge
+
+# If you uncomment the following line, homebridge will log more
+# You can display this via systemd's journalctl: journalctl -f -u homebridge
+# DEBUG=*
+```
+
+
 编辑homebridge.service文件
 ```
 sudo vi /etc/systemd/system/homebridge.service
@@ -115,10 +134,16 @@ sudo vi /etc/systemd/system/homebridge.service
 [Unit]
 Description=Homebridge
 After=home-assistant@homeassistant.service
+
 [Service]
 Type=simple
-User=root
-ExecStart=/usr/bin/homebridge -U /home/homeassistant/.homebridge
+User=homeassistant
+EnvironmentFile=/etc/default/homebridge
+ExecStart=/usr/bin/homebridge $HOMEBRIDGE_OPTS
+Restart=on-failure
+RestartSec=10
+KillMode=process
+
 [Install]
 WantedBy=multi-user.target
 ```
