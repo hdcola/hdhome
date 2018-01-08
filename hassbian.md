@@ -80,3 +80,66 @@ sudo npm config set registry https://registry.npm.taobao.org
     npm config get registry
 
 可以查看现在的源
+
+## ssh的key认证设置
+
+在自己的Mac上，打开终端，生成自己的私钥和公钥：
+
+```
+ssh-keygen -t rsa
+```
+这会在你的home目录中生成一个目录.ssh，这里有两个文件id_rsa是你的私钥，id_rsa.pub是你的公钥。
+
+ssh到你的pi
+
+```
+mkdir ~/.ssh
+chmod 700 ~/.ssh
+touch ~/.ssh/authorized_keys
+chmod 644 ~/.ssh/authorized_keys
+```
+
+将你的id_rsa.pub文件中的内容复制到authorized_keys文件中去。接下来，配置pi上的sshd：
+
+```
+sudo vi  /etc/ssh/sshd_config
+```
+
+找到```PubkeyAuthentication yes```将前面的```#```去除。最后重启下sshd
+
+```
+sudo service ssh restart
+```
+
+## 设置ssh ForwardAgent
+
+## Mac客户端设置
+
+```
+sudo vi /etc/ssh/ssh_config
+```
+
+在Host * 中加入
+
+```
+ForwardAgent yes
+```
+
+将ssh key加入Keychain
+
+```
+ssh-add .ssh/id_rsa
+ssh-add -L
+```
+
+## pi服务器设置
+
+```
+sudo vi /etc/ssh/ssh_config
+```
+
+在Host * 中加入
+
+```
+ForwardAgent yes
+```
