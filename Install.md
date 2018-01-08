@@ -1,4 +1,4 @@
-# Home Assistant & HomeBridge 安装
+# Home Assistant & HomeBridge 安装作弊条
 
 ## 选择使用的方案
 

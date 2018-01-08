@@ -1,4 +1,4 @@
-# Hassbian技巧集锦
+# Hassbian技巧作弊条
 
 ## 连接多个wifi的设置
 
