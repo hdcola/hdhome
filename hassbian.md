@@ -1,4 +1,6 @@
-## wifi设置
+# Hassbian技巧集锦
+
+## 连接多个wifi的设置
 
 如果你需要连接到多个wifi，可以通过在wpa_supplicant.conf中加入多个network来指定，比如
 
@@ -22,35 +24,8 @@ network={
 
 这里priority是优先级，哪个小先连接哪个。注意，这个文件放在sd卡根目录下，开机后会自动更新到/etc目录中去。
 
-## hassbian的ssh
 
-可以ssh的用户是pi，密码是raspberry。我的mac可以用 hassbian.local 连接过去，不用去路由器查ip（按道理win也应该可以）。
-
-## hassbian的更新源
-
-修改 /etc/apt/sources.list
-
-```
-deb http://mirrors.aliyun.com/raspbian/raspbian/ stretch main non-free contrib
-deb-src http://mirrors.aliyun.com/raspbian/raspbian/ stretch main non-free contrib
-deb http://mirrors.aliyun.com/raspbian/raspbian/ stretch main non-free contrib
-deb-src http://mirrors.aliyun.com/raspbian/raspbian/ stretch main non-free contrib
-deb http://mirrors.ustc.edu.cn/raspbian/raspbian/ stretch main non-free contrib
-deb-src http://mirrors.ustc.edu.cn/raspbian/raspbian/ stretch main non-free contrib
-deb http://mirrors.sohu.com/raspbian/raspbian/ stretch main contrib non-free rpi
-deb-src http://mirrors.sohu.com/raspbian/raspbian/ stretch main contrib non-free rpi
-```
-
-然后
-
-```
-sudo apt-get update
-sudo apt-get upgrade
-sudo apt-get update
-```
-感受下舒爽的更新吧
-
-## 安装Node.js
+## 安装Node.js的不同版本
 
 ### Node.js v9.x:
 
