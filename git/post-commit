@@ -1,0 +1,5 @@
+#!/bin/sh
+
+BasePath="/Users/hd/work/hassbian/sync.sh"
+
+exec $BasePath
