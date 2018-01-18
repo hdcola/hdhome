@@ -1,0 +1,15 @@
+[Unit]
+Description=Homebridge
+After=home-assistant@homeassistant.service
+
+[Service]
+Type=simple
+User=homeassistant
+EnvironmentFile=/etc/default/homebridge
+ExecStart=/usr/bin/homebridge $HOMEBRIDGE_OPTS
+Restart=on-failure
+RestartSec=10
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
