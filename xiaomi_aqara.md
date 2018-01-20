@@ -1,4 +1,4 @@
-#米家Aqara ZigBee网关接入
+# 米家Aqara ZigBee网关接入HomeAssistant
 
 ## 接入准备
 
@@ -43,3 +43,9 @@ xiaomi_aqara:
 ## 删除小米网关
 
 你会发现，在configuration.yaml中注释xiaomi_aqara是没有用的，启动ha后还会出现相应的设备，名称后只是多了一个_2，不能做任何控制。斛的方法就是在```discovery: ```前加一个注释好了
+
+# 米家Aqara ZigBee网关接入HomeBridge
+
+```
+sudo npm install -g homebridge-mi-aqara
+```
