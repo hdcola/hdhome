@@ -225,3 +225,17 @@ sudo vi /etc/ssh/ssh_config
 ```
 ForwardAgent yes
 ```
+
+## nodejs相关
+
+### 查找node_modules目录
+
+```
+npm -g root
+```
+
+### 将nodejs与npm升级到最新版本
+
+```
+sudo npm install -g n
+```
