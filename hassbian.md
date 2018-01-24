@@ -239,3 +239,32 @@ npm -g root
 ```
 sudo npm install -g n
 ```
+
+## 单用户模式
+
+当你玩花系统使得无法恢复时，你可以这样做，取出sd卡，编辑sd卡根目录下的cmdline.txt文件将原来的
+
+```
+dwc_otg.lpm_enable=0 console=serial0,115200 console=tty1 root=PARTUUID=c2009fe5-02 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait
+```
+
+后面加入 init=/bin/sh
+
+```
+dwc_otg.lpm_enable=0 console=serial0,115200 console=tty1 root=PARTUUID=c2009fe5-02 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait init=/bin/sh
+```
+
+将sd卡放回树莓派，加上显示器和键盘启动后
+
+```
+mount -rw -o remount /
+```
+
+去做你想做的事吧，最后(这里有一步忘记了，回头再查)
+
+```
+sync
+exec /sbin/init
+```
+
+启动一切正常后，halt系统。把cmdline.txt的```init=/bin/sh```去除即可。
