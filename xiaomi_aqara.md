@@ -46,6 +46,53 @@ xiaomi_aqara:
 
 # 米家Aqara ZigBee网关接入HomeBridge
 
+## 安装hb插件
+
 ```
 sudo npm install -g homebridge-mi-aqara
+```
+
+## config.json配置
+
+这是一个config.json的配置示例，在gateways中成对的输入你所有的小米网关的mac和key。之后可以使用defaultValue来个性化小米网关下的每台设置的配置。
+
+```
+{
+  "platform":"MiAqaraPlatform",
+  "gateways":{
+    "mac" : "key"
+  },
+  "defaultValue": {
+    "158d0001f3f96f": {
+      "Global": {
+        "serviceType": "Lightbulb"
+      },
+      "DuplexSwitch_Switch_Left": {
+        "name": "侧灯"
+      },
+      "DuplexSwitch_Switch_Right": {
+        "name": "顶灯"
+      }
+    },
+    "158d00020119fb":{
+      "TemperatureAndHumiditySensor_TemperatureSensor":{
+        "name": "温度"
+      },
+      "TemperatureAndHumiditySensor_HumiditySensor":{
+        "name": "湿度"
+      }
+    },
+    "7811dcb24eed":{
+      "Gateway_LightSensor":{
+        "name": "亮度"
+      },
+      "Gateway_Switch_JoinPermission":{
+        "name": "允许连接"
+      },
+      "Gateway_Lightbulb":{
+        "name": "夜灯"
+      }
+    }
+  }
+}
 ```
