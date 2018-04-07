@@ -11,4 +11,4 @@ sudo spctl --master-disable
 
 ## 同步你的文件
 
-开一个samba或是sftp都让我非常不爽，我最喜欢的还是使用了git同步
+开一个samba或是sftp都让我非常不爽，我最喜欢的还是使用了git同步，这里记录下如何使用git来将你的更改自动同步到你的ha中去。
