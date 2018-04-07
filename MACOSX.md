@@ -7,3 +7,8 @@
 ```
 sudo spctl --master-disable
 ```
+
+
+## 同步你的文件
+
+开一个samba或是sftp都让我非常不爽，我最喜欢的还是使用了git同步
