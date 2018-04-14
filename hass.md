@@ -1,4 +1,10 @@
 
+Configuration dir: ```/home/homeassistant/.homeassistant/```
+Start service: ```sudo systemctl start home-assistant@homeassistant.service```
+Stop service: ```sudo systemctl stop home-assistant@homeassistant.service```
+Restart service: ```sudo systemctl restart home-assistant@homeassistant.service```
+Service status: ```sudo systemctl status home-assistant@homeassistant.service```
+
 ## hass升级
 
 升级homeassistant
