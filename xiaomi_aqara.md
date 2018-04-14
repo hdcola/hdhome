@@ -96,3 +96,26 @@ sudo npm install -g homebridge-mi-aqara
   }
 }
 ```
+
+## 小米无线开关二代
+
+homebridge-mi-aqara v0.6.8 支持无线开关，但是对新的带摇一摇的无线开关无法识别。我在米家中发现这种新的无线开关的version是aq3。通过网友 ```猿•いずみ``` 的提示把方法记录一下。
+
+```
+cd /usr/lib/node_modules/homebridge-mi-aqara/lib
+vi ParseUtil.js
+```
+
+找到
+
+```
+'sensor_switch.aq2': new Button2Parser(platform), // 按钮 第二代
+```
+
+在它下面加入一行
+
+```
+'sensor_switch.aq3': new Button2Parser(platform), // 按钮 第2.5代
+```
+
+重启homebridge就好了。
