@@ -99,6 +99,8 @@ sudo npm install -g homebridge-mi-aqara
 
 ## 小米无线开关二代
 
+### HomeBridge
+
 homebridge-mi-aqara v0.6.8 支持无线开关，但是对新的带摇一摇的无线开关无法识别。我在米家中发现这种新的无线开关的version是aq3。通过网友 ```猿•いずみ``` 的提示把方法记录一下。
 
 ```
@@ -118,4 +120,32 @@ vi ParseUtil.js
 'sensor_switch.aq3': new Button2Parser(platform), // 按钮 第2.5代
 ```
 
-重启homebridge就好了。
+重启homebridge就能识别出无线开关了。
+
+无线开关的配置：
+
+```
+"158d0001b96e7c":{
+  "Button2_StatelessProgrammableSwitch":{
+    "name": "无线开关"
+  },
+  "Button2_Switch_VirtualSinglePress":{
+    "name": "单击无线开关"
+  },
+  "Button2_Switch_VirtualDoublePress":{
+    "name": "双击无线开关"
+  }
+},
+```
+
+这个配置将会在你的苹果家庭中出现三个组件：一个是叫无线开关的可设置按一下、连按两下、长按操作的可编程开关。以及一个叫单击无线开关、一个叫双击无线开关的虚拟开关。
+
+### HomeAssistant
+
+HomeAssistant不用改什么代码，但是需要自己把开关的各种状态虚拟出一个开关来，让homekit去做自动化（相当于上面hb里的虚拟开关）。参考[https://www.home-assistant.io/components/switch.template/]组件。
+
+当小米无线开关连到小米网关后，你按下无线开关，在ha中就会有这样一条log：
+
+```
+Apr 15 16:59:08 hassbian homebridge[597]: [2018-4-15 16:59:08] [HomeAssistant] Received event: {"event_type": "click", "data": {"entity_id": "binary_sensor.switch_158d0001b96e7c", "click_type": "single"}, "time_fired": "2018-04-15T08:59:08.108750+00:00", "origin": "LOCAL"}
+```
