@@ -142,10 +142,48 @@ vi ParseUtil.js
 
 ### HomeAssistant
 
-HomeAssistant不用改什么代码，但是需要自己把开关的各种状态虚拟出一个开关来，让homekit去做自动化（相当于上面hb里的虚拟开关）。参考[https://www.home-assistant.io/components/switch.template/]组件。
+HomeAssistant的homekit不支持可编程开会。想了半天用了一个笨办法，用input_boolean虚拟出一个开关，然后用事件来切换这个开关，这样就可以在家庭中用这个开关的状态做自己想做的自动化了。
 
-当小米无线开关连到小米网关后，你按下无线开关，在ha中就会有这样一条log：
+先做两个虚拟开关（configuration.yaml）：
 
 ```
-Apr 15 16:59:08 hassbian homebridge[597]: [2018-4-15 16:59:08] [HomeAssistant] Received event: {"event_type": "click", "data": {"entity_id": "binary_sensor.switch_158d0001b96e7c", "click_type": "single"}, "time_fired": "2018-04-15T08:59:08.108750+00:00", "origin": "LOCAL"}
+input_boolean:
+  single_click:
+    name: 单击无线开关
+    initial: off
+    icon: mdi:car
+  double_click:
+    name: 双击无线开关
+    initial: off
+    icon: mdi:car
 ```
+
+再加两个automation（automations.yaml）：
+
+
+```
+- alias: single_click
+  trigger:
+    platform: event
+    event_type: click
+    event_data:
+      entity_id: binary_sensor.switch_158d0001b96e7c
+      click_type: single
+  action:
+    service: input_boolean.toggle
+    entity_id: input_boolean.single_click
+
+
+- alias: double_click
+  trigger:
+    platform: event
+    event_type: click
+    event_data:
+      entity_id: binary_sensor.switch_158d0001b96e7c
+      click_type: double
+  action:
+    service: input_boolean.toggle
+    entity_id: input_boolean.double_click
+```
+
+收工！
