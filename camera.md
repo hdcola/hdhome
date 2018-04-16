@@ -54,3 +54,20 @@ sudo npm install -g homebridge-camera-ffmpeg
   ]
 }
 ```
+
+### homeassistant接入
+
+在configuration.yaml中加入
+
+```
+ffmpeg:
+  ffmpeg_bin: /usr/bin/ffmpeg
+
+camera:
+  - platform: ffmpeg
+    input: -rtsp_transport tcp -i rtsp://admin:passwd@1.2.3.4/Streaming/Channels/101
+    extra_arguments: -pred 1 -q:v 2 -s 704x576
+
+```
+
+完成！
