@@ -268,3 +268,34 @@ exec /sbin/init
 ```
 
 启动一切正常后，halt系统。把cmdline.txt的```init=/bin/sh```去除即可。
+
+## 3.5寸LCD触摸屏
+
+### 安装驱动
+
+```
+git clone https://github.com/goodtft/LCD-show.git
+sh LCD-show/LCD35-show
+```
+
+如果想切回HDMI
+
+```
+sh LCD-show/LCD-hdmi
+```
+
+### 旋转屏幕
+
+为了让电源冲上，立着看屏幕需要设置旋转
+
+```
+sudo vi /boot/config.txt
+```
+
+找到dtoverlay=tft35a，改为
+
+```
+dtoverlay=tft35a:rotate=270
+```
+
+270度是电源冲上的，到底是0、90、180合适，自己reboot后设置吧。
