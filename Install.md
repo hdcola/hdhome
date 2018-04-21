@@ -82,6 +82,26 @@ sudo apt-get install -y nodejs
 ```
 sudo npm config set registry https://registry.npm.taobao.org
 ```
+
+## pip更新源修改
+
+```
+sudo vi /etc/pip.conf
+```
+
+格式为：
+
+```
+[global]
+index-url = https://pypi.doubanio.com/simple/
+```
+
+还有以下可选：
+
+* 阿里：http://mirrors.aliyun.com/pypi/simple/
+* 中科大：https://pypi.mirrors.ustc.edu.cn/simple/
+* 清华：https://pypi.tuna.tsinghua.edu.cn/simple/
+
 ## 安装libAvahi
 
 ```
@@ -96,7 +116,7 @@ sudo apt-get -y install libavahi-compat-libdnssd-dev
 sudo npm install -g --unsafe-perm homebridge
 ```
 
-再安装HomeBridge-HomeAssistant
+再安装HomeBridge-HomeAssistant（此步基本可以省去）
 
 ```
 sudo npm install -g homebridge-homeassistant
