@@ -93,12 +93,12 @@ sudo vi /etc/pip.conf
 
 ```
 [global]
-index-url = https://pypi.doubanio.com/simple/
+index-url=https://pypi.doubanio.com/simple/
 ```
 
 还有以下可选：
 
-* 阿里：http://mirrors.aliyun.com/pypi/simple/
+* 阿里：https://mirrors.aliyun.com/pypi/simple/
 * 中科大：https://pypi.mirrors.ustc.edu.cn/simple/
 * 清华：https://pypi.tuna.tsinghua.edu.cn/simple/
 
