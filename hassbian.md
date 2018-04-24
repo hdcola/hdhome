@@ -274,17 +274,24 @@ exec /sbin/init
 ### 安装驱动
 
 ```
-git clone https://github.com/goodtft/LCD-show.git
-sh LCD-show/LCD35-show
+git clone https://github.com/hdcola/LCD-show.git
+cd LCD-show
+chmod +x *
+sudo ./LCD35-show
 ```
+如果一切都ok，你就可以用```sudo reboot```重启就ok了。
 
 如果想切回HDMI
 
 ```
-sh LCD-show/LCD-hdmi
+sudo ./LCD-hdmi
 ```
 
 ### 旋转屏幕
+
+#### 旋转显示
+
+##### 适用于 GPIO 接口型 LCD(2.4 寸,2.8 寸,3.2 寸,3.5 寸)
 
 为了让电源冲上，立着看屏幕需要设置旋转
 
@@ -298,4 +305,98 @@ sudo vi /boot/config.txt
 dtoverlay=tft35a:rotate=270
 ```
 
-270度是电源冲上的，到底是0、90、180合适，自己reboot后设置吧。
+270度是电源冲上的，到底是0、90、180合适，自己reboot后观察效果决定吧。
+
+##### 适用于HDMI接口型LCD
+
+```
+sudo nano /boot/config.txt
+```
+
+找到```display_rotate```改为
+
+```
+display_rotate=0
+```
+
+这里0为0度、1为90度、2为180度、3为270度、0x10000为水平翻转、0x20000为垂真翻转。
+
+#### 旋转触摸屏
+
+```
+sudo vi /etc/X11/xorg.conf.d/99-calibration.conf
+```
+
+默认的配置是这样（旋转0度，display_rotate=0）：
+
+```
+Section "InputClass"
+  Identifier "calibration"
+  MatchProduct "ADS7846 Touchscreen"
+  Option "Calibration" "140 3951 261 3998 "
+  Option "SwapAxes" "0"
+EndSection
+```
+
+如果旋转90度，display_rotate=1，则更改为
+
+```
+Section "InputClass"
+  Identifier "calibration"
+  MatchProduct "ADS7846 Touchscreen"
+  Option "Calibration" "261 3998 3951 140"
+  Option "SwapAxes" "1"
+EndSection
+```
+
+如果旋转180度，display_rotate=2，则更改为
+
+```
+Section "InputClass"
+  Identifier "calibration"
+  MatchProduct "ADS7846 Touchscreen"
+  Option "Calibration" "3951 140 3998 261"
+  Option "SwapAxes" "0"
+EndSection
+```
+
+如果旋转270度，display_rotate=3，则更改为
+
+```
+Section "InputClass"
+  Identifier "calibration"
+  MatchProduct "ADS7846 Touchscreen"
+  Option "Calibration" "3998 261 140 3951"
+  Option "SwapAxes" "1"
+EndSection
+```
+
+如此麻烦的东西，反正我是没有想改的心了。
+
+## 桌面
+
+安装
+
+```
+sudo apt-get install --no-install-recommends xserver-xorg
+sudo apt-get install --no-install-recommends xinit
+sudo apt-get install --no-install-recommends raspberrypi-ui-mods lxterminal gvfs
+```
+
+加入默认登录
+
+```
+sudo vi /etc/lightdm/lightdm.conf
+```
+
+找到
+
+```
+#autologin-user=
+```
+
+改为
+
+```
+autologin-user=pi
+```
