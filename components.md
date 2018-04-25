@@ -20,3 +20,19 @@ light:
           service: switch.turn_off
           entity_id: switch.living_room_light
 ```
+
+## saswell
+
+有兄弟贡献了saswell的代码：[https://github.com/Yonsm/HAExtra/blob/master/custom_components/climate/saswell.py]
+
+```
+climate:
+  - platform: saswell
+    #name: Saswell
+    username: username
+    password: password
+    devices: 1
+    #scan_interval: 300
+```
+
+devices指定温控器的个数。
