@@ -111,7 +111,7 @@
 
 ## 电暖、水暖温控器
 
-在快要崩溃的时候，github上有一位兄弟贡献了saswell温控器的代码，仔细一看，基本上是通过云来完成接入的，支持HA和HB。
+在快要崩溃的时候，github上有一位兄弟贡献了saswell温控器的代码，仔细一看，基本上是通过云来完成接入的，支持HA和homkit组件。
 
 * SAS920WHL-7W-WIFI 水暖wifi温控器
 * SAS920FHL-7W-WIFI 电暖wifi温控器
