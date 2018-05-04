@@ -111,6 +111,131 @@ sudo vi  /etc/ssh/sshd_config
 sudo service ssh restart
 ```
 
+## frp反向代理
+
+### 服务器设置
+
+```
+wget https://github.com/fatedier/frp/releases/download/v0.18.0/frp_0.18.0_linux_amd64.tar.gz
+tar xzvf frp_0.18.0_linux_amd64.tar.gz
+sudo cp /frp_0.18.0_linux_amd64/frps /usr/local/bin/
+sudo vi /etc/frp/frps.ini
+```
+frps.ini中
+
+```
+[common]
+bind_port = 7000
+vhost_http_port = 7080
+dashboard_port = dashboard_port_number
+dashboard_user = dashboard_user_name
+dashboard_pwd = dashboard_pwd_value
+privilege_token = privilege_token_value
+```
+
+* bind_port:服务器por
+* vhost_http_port:虚拟服务器http服务映射端口
+* dashboard_port:frp控制台端口
+* dashboard_user:frp控制台用户名
+* dashboard_pwd:frp控制台密码
+* privilege_token:自己的token，当frps和frpc token相同时才会进行通讯
+
+```
+sudo vi /etc/systemd/system/frps.service
+```
+
+里面为：
+
+```
+[Unit]
+Description=frps daemon
+After=syslog.target  network.target
+Wants=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/frps -c /etc/frp/frps.ini
+ExecStop=/bin/kill $MAINPID
+TimeoutStartSec=30
+
+[Install]
+WantedBy=multi-user.target
+```
+
+加载和启用服务
+
+```
+sudo systemctl daemon-reload
+sudo systemctl enable frps
+sudo systemctl start frps
+```
+
+### pi客户端设置
+
+```
+wget https://github.com/fatedier/frp/releases/download/v0.18.0/frp_0.18.0_linux_arm.tar.gz
+tar xzvf frp_0.18.0_linux_arm.tar.gz
+sudo cp frp_0.18.0_linux_arm/frpc /usr/local/bin/
+sudo vi /etc/frp/frpc.ini
+```
+frpc.ini中如下
+
+```
+[common]
+server_addr = your_server_ip
+server_port = 7000
+privilege_token = privilege_token_value
+login_fail_exit = false
+
+[ssh]
+type = tcp
+local_ip = 127.0.0.1
+local_port = 22
+remote_port = remote_port_number
+
+[haweb]
+type = http
+local_port = 8123
+custom_domains = server_domain
+```
+
+* login_fail_exit:连接失败是否退出，如果为 false，则启动时连接服务器失败将不会退出，而是定期重连。
+* remote_port_number:指定通过远程服务器的哪个端口来 ssh
+* custom_domains:访问服务器的域名
+
+```
+sudo vi /etc/systemd/system/frpc.service
+```
+
+里面为：
+
+```
+[Unit]
+Description=frpc daemon
+After=syslog.target  network.target
+Wants=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/frpc -c /etc/frp/frpc.ini
+ExecStop=/bin/kill $MAINPID
+TimeoutStartSec=30
+
+[Install]
+WantedBy=multi-user.target
+```
+加载和启用服务
+
+```
+sudo systemctl daemon-reload
+sudo systemctl enable frpc
+sudo systemctl start frpc
+```
+
+当frpc启动的时候，你就可以通过server上的remote_port_number连回到pi上了。你也可以使用http://custom_domains:vhost_http_port来访问家里的8123上的ha web管理界面了。
+
+
+
 ## 反向SSH隧道
 
 ### 手工开洞
