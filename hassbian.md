@@ -224,17 +224,116 @@ TimeoutStartSec=30
 [Install]
 WantedBy=multi-user.target
 ```
-加载和启用服务
+加载和启动服务
 
 ```
 sudo systemctl daemon-reload
-sudo systemctl enable frpc
 sudo systemctl start frpc
 ```
 
-当frpc启动的时候，你就可以通过server上的remote_port_number连回到pi上了。你也可以使用http://custom_domains:vhost_http_port来访问家里的8123上的ha web管理界面了。
+当frpc启动的时候，你就可以通过server上的remote_port_number连回到pi上了。你也可以使用http://custom_domains:vhost_http_port来访问家里的8123上的ha web管理界面了。为了配合后面的远程协助，不建议enable frpc。
 
+### 安全内网连接
 
+由于我使用frp都是为了远程协助（帮助我的朋友们维护和升级pi），所以说明一下如何使用ha和frp完成一个“远程协助”。
+
+#### 设置PI
+
+* frpc.ini
+
+```
+[common]
+server_addr = your_server_ip
+server_port = 7000
+privilege_token = your_token
+login_fail_exit = false
+
+[haweb_djy]
+type = stcp
+sk = huangdong@djy
+local_ip = 127.0.0.1
+local_port = 8123
+
+[ssh_djy]
+type = stcp
+sk = your_secretkey
+local_ip = 127.0.0.1
+local_port = 22
+
+[hbweb_djy]
+type = stcp
+sk = your_secretkey
+local_ip = 127.0.0.1
+local_port = 8080
+
+[cloud9_djy]
+type = stcp
+sk = your_secretkey
+local_ip = 127.0.0.1
+local_port = 8181
+```
+
+* ha的configuration.yaml
+
+```
+switch:
+  - platform: command_line
+    switches:
+      remote_helper:
+        command_on: "sudo systemctl start frpc"
+        command_off: "sudo systemctl stop frpc"
+        command_state: "systemctl is-active frpc.service"
+        value_template: '{{ value == "active" }}'
+        friendly_name: "远程协助"
+```
+
+如果你开了homekit，哪么你的家庭中就会多出一个远程协助的按钮。每当打开开关，远程协助开启，关闭谁都访问不进来了。
+
+#### 管理机
+
+如果从互联网上远程协助，如下配置：
+
+* frpc.ini
+
+```
+[common]
+server_addr = your_server_ip
+server_port = 7000
+privilege_token = your_token
+
+[ssh_visitor]
+type = stcp
+role = visitor
+server_name = ssh_djy
+sk = your_secretkey
+bind_addr = 127.0.0.1
+bind_port = 8022
+
+[haweb_visitor]
+type = stcp
+role = visitor
+server_name = haweb_djy
+sk = your_secretkey
+bind_addr = 127.0.0.1
+bind_port = 8123
+
+[hbweb_visitor]
+type = stcp
+role = visitor
+server_name = hbweb_djy
+sk = your_secretkey
+bind_addr = 127.0.0.1
+bind_port = 8080
+
+[cloud9_visitor]
+type = stcp
+role = visitor
+server_name = cloud9_djy
+sk = your_secretkey
+bind_addr = 127.0.0.1
+bind_port = 8181
+```
+启动frpc后，就可以通过localhost连到ssh(8022)、ha(8123)、hb(8080)、cloud9(8181)
 
 ## 反向SSH隧道
 
