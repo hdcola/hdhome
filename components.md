@@ -26,6 +26,14 @@ light:
 有兄弟贡献了saswell的代码：[https://github.com/Yonsm/HAExtra/blob/master/custom_components/climate/saswell.py]
 
 ```
+wget https://raw.githubusercontent.com/Yonsm/HAExtra/master/custom_components/climate/saswell.py
+sudo mkdir -p /home/homeassistant/.homeassistant/custom_components/climate
+sudo cp saswell.py /home/homeassistant/.homeassistant/
+```
+
+ha配置中加入
+
+```
 climate:
   - platform: saswell
     #name: Saswell
