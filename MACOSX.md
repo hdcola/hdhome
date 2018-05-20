@@ -1,6 +1,6 @@
 # 有关MAC的一些作弊条
 
-##
+## Virtualbox安装
 
 安装Virtualbox死活失败，都快丧尸信心了，最后发现是mac的安全规则，一条命令搞定，去系统设置的安全中设置为任何源都可以吧。
 
@@ -8,6 +8,23 @@
 sudo spctl --master-disable
 ```
 
+## 好用的Atom插件
+
+### pretty-json
+
+[https://atom.io/packages/pretty-json] 提供json的格式化能力
+
+### Minimap
+
+[https://atom.io/packages/minimap] 提供代码缩略图，可以放在右侧用于代码概览和导航
+
+### atom-beautify
+
+[https://atom.io/packages/atom-beautify]提供代码的格式化功能，支持格式化HTML, CSS, JavaScript, PHP, Python, Ruby, Java, C, C++, C#, Objective-C, CoffeeScript, TypeScript, Coldfusion, SQL等等
+
+### terminal-plus
+
+[https://atom.io/packages/terminal-plus]支持将终端集成到编辑器中。在编辑器界面就可以打开终端执行命令，省去了另开窗口的麻烦。打开终端时，路径会定位到编辑器项目中的根目录，可以非常方便的对当前项目进行命令操作。
 
 ## 同步你的文件
 
