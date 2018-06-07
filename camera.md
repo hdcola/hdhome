@@ -57,7 +57,7 @@ sudo npm install -g homebridge-camera-ffmpeg
 
 ### homeassistant接入
 
-在configuration.yaml中加入
+注意，ha还不支持把camera输出到homekit中，所以做这个意义不大。在configuration.yaml中加入
 
 ```
 ffmpeg:
