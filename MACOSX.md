@@ -1,5 +1,23 @@
 # 有关MAC的一些作弊条
 
+## 备份和恢复SD卡
+
+### 备份
+
+* 插入SD卡到你的mac，这时会自动挂载相关的分区
+* ```sudo umount /dev/disk2s1```
+* ```sudo dd if=/dev/disk2 | bzip2 -9f > ~/hassbian.img.bz2```
+
+注意，要自己用mount看看你的dos分区是不是disk2s1，做dd则就是disk2整个磁盘。
+
+### 恢复
+
+可以使用```etcher```来直接恢复，也可以使用
+
+```
+sudo bunzip2 -dc ~/hassbian.img.bz2 | sudo dd of=/dev/disk2
+```
+
 ## Virtualbox安装
 
 安装Virtualbox死活失败，都快丧尸信心了，最后发现是mac的安全规则，一条命令搞定，去系统设置的安全中设置为任何源都可以吧。
