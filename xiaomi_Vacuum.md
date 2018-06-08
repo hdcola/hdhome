@@ -27,6 +27,8 @@ vacuum:
 
 ## HomeKit的配置
 
+### 开关扫地机器人
+
 在 configuration.yaml 中加入：
 
 ```
@@ -48,3 +50,18 @@ switch:
 ```
 
 这样就通过一个开关可以开启和停止石头机器人的扫地了。
+
+### 用一个湿度传感器显示电量
+
+在 configuration.yaml 中加入：
+```
+sensor:
+  - platform: template
+    sensors:
+      shitoubattery_level:
+        friendly_name: "石头电量"
+        unit_of_measurement: "%"
+        device_class: humidity
+        value_template: '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.battery_level }}'
+```
+这样你就会发现一个石头电量的湿度传感器显示石头的电量了。

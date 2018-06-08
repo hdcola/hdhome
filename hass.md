@@ -1,61 +1,6 @@
 
-Configuration dir: ```/home/homeassistant/.homeassistant/```
-Start service: ```sudo systemctl start home-assistant@homeassistant.service```
-Stop service: ```sudo systemctl stop home-assistant@homeassistant.service```
-Restart service: ```sudo systemctl restart home-assistant@homeassistant.service```
-Service status: ```sudo systemctl status home-assistant@homeassistant.service```
+## 看看别人的配置
 
-## hass升级
+有空了就去看看别人的配置： https://github.com/search?q=topic%3Ahome-assistant-config&amp;type=Repositories
 
-升级homeassistant
-
-```
-sudo hassbian-config upgrade homeassistant
-```
-
-升级homeassistant中的软件包
-
-进入homeassistant env：
-
-```
-sudo su -s /bin/bash homeassistant
-source /srv/homeassistant/bin/activate
-```
-
-查看所有软件包
-
-```
-pip list
-```
-
-查看所有过期软件包
-
-```
-pip list --outdated
-```
-
-升级指定软件包
-
-```
-pip install --upgrade 库名
-```
-
-升级所有可升级的包
-
-```
-pip freeze --local | grep -v '^-e' | cut -d = -f 1  | xargs -n1 pip install -U
-```
-
-```
-for i in `pip list -o --format legacy|awk '{print $1}'` ; do pip install --upgrade $i; done
-```
-
-## hassctl
-
-hassctl是一个hass的简单操作工具
-
-### 安装：
-
-```
-sudo curl -o /usr/local/bin/hassctl https://raw.githubusercontent.com/dale3h/hassctl/master/hassctl && sudo chmod +x /usr/local/bin/hassctl
-```
+另外，有国人翻译了不少示例： http://blog.oo87.com/python/7480.html
