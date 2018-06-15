@@ -38,7 +38,7 @@ switch:
       shitou:
         friendly_name: "石头"
         icon_template: mdi:robot-vacuum
-        value_template: "{{ is_state('vacuum.xiaomi_vacuum_cleaner.state', 'on') }}"
+        value_template: "{{ is_state('vacuum.xiaomi_vacuum_cleaner', 'on') }}"
         turn_on:
           service: vacuum.turn_on
           data:
