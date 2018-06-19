@@ -3,7 +3,7 @@
 ## 获取token
 
 * 用iTunes备份你的iPhone
-* 使用iBackup Viewer 找到小米app，导出```*_mihome.sqlite```这样的一个文件
+* 使用iBackup Viewer 找到小米app（AppDomain-com.xiaomi.mihome），导出```*_mihome.sqlite```这样的一个文件
 * 使用DB Browser for SQLite打开导出的sqlite文件
 * 打开ZDEVICE表，从中查到你所使用的扫地机器人，得到对应iteam里的ZTOKEN字段内容
 * 使用 ```echo '0: <你的原始ZTOKEN字符串>' | xxd -r -p | openssl enc -d -aes-128-ecb -nopad -nosalt -K 00000000000000000000000000000000```得到32位token
