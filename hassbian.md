@@ -1,5 +1,18 @@
 # Hassbian技巧作弊条
 
+## 设置以太网为静态IP
+
+```ls /sys/class/net/```
+
+看看系统的以太网卡名字，在 /etc/dhcpcd.conf 中加入
+
+```
+interface ethxxxxxx
+static ip_address=192.168.1.100/24
+static routers=192.168.1.1
+static domain_name_servers=192.168.1.1 8.8.8.8 8.8.4.4
+```
+
 ## 连接多个wifi的设置
 
 如果你需要连接到多个wifi，可以通过在wpa_supplicant.conf中加入多个network来指定，比如

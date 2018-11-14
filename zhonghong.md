@@ -43,3 +43,48 @@
 ![超大控制面板设置](./img/daking3.jpeg)
 
 你需要同时按风量调节、信号复位两个按钮几秒后进入```现场设定```，将家中的每个面板依次设置为00 代码1-00、1-01...注意不要重复。如上图。
+
+## 网络设置
+
+### 网关与pi直连
+
+网关的网口默认IP地址为192.168.1.251
+
+#### 配置好你的wifi连接
+
+在```/etc/wpa_supplicant```下确认你的```wpa_supplicant.conf```配置正常，这是一个示例：
+
+```
+country=CN
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+network={
+        ssid="YOUSSID"
+        psk="YOUPASSWORD"
+        key_mgmt=WPA-PSK
+        priority=1
+    }
+```
+
+重启后，确保wifi连接正常。
+
+#### 配置以太网口
+
+在 ```/etc/dhcpcd.conf``` 中加入以下内容：
+
+```
+interface enxb827ebbdb4a8
+static ip_address=192.168.1.10/24
+```
+
+这里interface enxxxxx是从```/sys/class/net/```目录中查出网络接口名称的。
+
+#### 连接到web管理界面
+
+在自己电脑的终端上通过ssh tunnel建立一个到空调网关管理界而的通道：
+
+```
+ssh -NL localhost:8080:192.168.1.251:80 pi@hassbian.local
+```
+
+通过本机的8080就可以看到中弘网关上的管理界面了，它的用户名为admin，默认密码为空。
